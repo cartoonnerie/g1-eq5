@@ -1,0 +1,418 @@
+html{
+    background: #ABABAB;
+    height: 100%;
+}
+
+body{
+    position: relative;
+    min-height: 100%;
+    max-width: 1540px;
+    margin: 0 auto;
+    padding-bottom: 80px;
+    background: white;
+}
+
+a{
+    color: unset;
+    text-decoration: unset;
+}
+
+a:hover{
+    color: unset;
+    text-decoration: unset;
+}
+
+.top-element, .bottom-element{
+    min-height: 80px;
+    background:#222c37;
+    color: white;
+}
+
+.bottom-element {
+    position: absolute; 
+    width: 100%;
+    bottom: 0;
+}
+
+.big_title{
+    margin: 0px;
+    padding: 0px 20px;
+    font-size: 40px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.title{
+    display: flex;
+    margin: 10px 0px;
+    padding: 5px 30px;
+    min-height: 40px;
+    align-items: center;
+
+    font-size: 25px;
+    background:#222c37;
+    font-weight: bold;
+    color: white;
+}
+
+.subtitle{
+    margin: 10px 20px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: black;
+}
+
+.elements{
+    background-color: #f4f1ef;
+    border-radius: 20px;
+
+    padding: 5px 20px;
+    margin: 10px 20px;
+    margin-top: 5px;
+    flex-grow: 1;
+    max-width: 100%;
+    min-height: 40px;
+}
+
+.value{
+    align-items: center;
+    text-align: center;
+}
+
+.text{
+    align-items: center;
+    text-align: left;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/******************************************* BUTTON ****************************************************/
+.button{
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 10px;
+    text-align: center;
+    min-width: 50px;
+
+    font-size: 20px;
+    background-color: #222c37;
+    font-weight: bold;
+    color: white;
+}
+
+.button:hover{
+    background-color: #40658b;
+}
+
+.button:active{
+    background-color: white;
+    color: #40658b;
+}
+
+/******************************************* LIST ****************************************************/
+.list{
+    margin: 10px 20px;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+.list_title{
+    display: flex;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    padding: 0px 10px;
+    color: black;
+}
+
+.list_line{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #dad5ce;
+    margin: 5px 10px;
+    padding: 0;
+    border-radius: 20px;
+    min-height: 45px;
+    justify-content: center;
+}
+
+.list .elements, .list .value{
+    margin: 5px;
+}
+
+.list a:hover{
+    background-color: #bdb7ae;
+}
+
+.small_case{
+    flex-grow: 0 !important;
+    min-width: 5em;
+}
+
+.medium_case{
+    flex-grow: 0 !important;
+    min-width: 8em;
+}
+
+/******************************************* MENU ****************************************************/
+.menu{
+    display: flex;
+    font-weight: bold;
+    text-align: center;
+    background: #222c37;
+    color: white;
+}
+
+.menu .menu-item, .menu .menu-select{
+    position: relative;
+    flex-basis: 0;
+    flex-grow: 1;
+    padding: 8px;
+    max-width: 100%;
+    text-decoration: none;
+}
+
+.menu .menu-item{
+    color: white;
+} 
+
+.menu .menu-item:hover{
+    background: #40658b;
+}
+
+.menu .menu-item:active{
+    background: white;
+    color:#40658b
+}
+
+.menu .menu-select{
+    pointer-events: none;
+    background: white;
+    color:black
+}
+
+/******************************************* FORM ****************************************************/
+.form{
+    margin: 10px 20px;
+    padding: 5px 20px;
+    border-radius: 20px;
+
+    background: #dad5ce;
+}
+
+.form .subtitle{
+    min-width: 15%;
+    text-align: right;
+}
+
+.form .elements{
+    min-width: 250px;
+}
+
+.form .group{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.form .valid{
+    background-color: #00a727 !important;
+}
+
+.form .valid:hover{
+    background-color: #007a1d !important;
+}
+
+.form .valid:active{
+    background: white !important;
+    color: #00a727 !important;
+}
+
+.form .reject{
+    background-color: #d80016 !important;
+}
+
+.form .reject:hover{
+    background-color: #ac0011 !important;
+}
+
+.form .reject:active{
+    background: white !important;
+    color: #d80016 !important;
+}
+
+input:read-only, textarea:read-only, select:read-only{
+    border: 0;
+}
+
+input{
+    border: 2px solid white;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    text-decoration: none;
+}
+
+textarea{
+    border: 2px solid white;
+    border-bottom-right-radius: 0 !important;
+}
+
+select{
+    border: 2px solid white;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+/******************************************* HOVER ****************************************************/
+.hover_active{
+    display: none;
+}
+
+.hover:hover .hover_active{
+    display: block;
+}
+
+/******************************************* POPUP ******************************************************/
+.popup{
+    background:rgba(0,0,0,.4);
+    display:none;
+    height:100%;
+    position:fixed;
+    text-align:center;
+    top:0;
+    left: 0;
+    width:100%;
+    z-index:10000;
+}
+
+.popup .background{
+    display:inline-block;
+    height:100%;
+    vertical-align:middle;
+}
+
+.popup .content{
+    display: flex;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    min-height: 100px;
+    min-width: 40%;
+    vertical-align: middle;
+    position: relative;
+    border-radius: 20px;
+}
+
+
+/******************************************* TOOLTIPS ****************************************************/
+.tooltips {
+    position: relative;
+    display: inline-block;
+  }
+  
+.tooltips .tooltiptext {
+    visibility: hidden;
+    position: absolute;
+    width: 300px;
+    min-height: 40px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -150px;
+    border-radius: 20px;
+    padding: 5px 20px;
+    z-index: 1;
+
+    background-color: #7e7e7e;
+    color: #fff;
+    text-align: center;
+
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltips .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #7e7e7e transparent transparent transparent;
+}
+  
+.tooltips:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+/******************************************* PROGRESS BAR ************************************************/
+.progess-bar{
+    width: 100px;
+    height: 10px;
+    margin-left: 20px;
+    border-radius: 5px;
+    background-color: #ABABAB;
+}
+
+.progress_value{
+    margin: 0px;
+    background-color: rgb( 97, 184, 255);
+}
+
+
+/******************************************* CALENDAR ****************************************************/
+.calendar-date {
+    display: grid;
+    grid-template-columns: repeat(7, 30px);
+    grid-template-rows: repeat(7, 28px);
+    min-height: 200px;
+    font-weight: normal;
+    font-size: large;
+    box-sizing: border-box;
+}
+
+.calendar-day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.calendar-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar-day:nth-child(7), .calendar-number:nth-child(7n) {
+    color: #ff685d;
+    font-weight: bold;
+}
+  
+.calendar-date .start, .calendar-date .end{
+    background-color: #6087ad;
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.calendar-date .start {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.calendar-date .end {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.calendar-date .current {
+    border-radius: 0px;
+    background-color: #40658b80;
+}
