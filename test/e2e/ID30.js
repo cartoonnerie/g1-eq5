@@ -7,7 +7,7 @@ const assert = require('assert');
 const {Builder, By, until} = require('selenium-webdriver');
 require('../../src/app');
 
-describe('ID1 E2E test', () => {
+describe('ID30 E2E test', () => {
     let driver;
     const name = 'Purple Project';
     const key = 'PUR';
@@ -27,7 +27,7 @@ describe('ID1 E2E test', () => {
         await driver.quit();
     });
 
-    it('add a project', async () => {
+    it('view projects', async () => {
         await driver.get('http://localhost:8080/projects/');
         let registeredKey = await driver.findElement(webdriver.By.css('div.list > div:nth-child(2) > a > div.elements.value')).getText();
         let registeredName = await driver.findElement(webdriver.By.css('div.list > div:nth-child(2) > a > div.elements.text')).getText();

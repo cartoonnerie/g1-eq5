@@ -24,30 +24,30 @@ describe('Projects routes', () => {
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
-                })
+                });
         });
-    })
+    });
 
     describe('TTES-03 /POST projects', () => {
-        it('should POST a project',  () => {
+        it('should POST a project', () => {
             chai.request(server)
                 .post('/projects')
-                .send("key=TES3&name=project")
+                .send('key=TES3&name=project')
                 .end((err, res) => {
                     res.should.have.status(201);
                     res.body.should.be.a('object');
                 });
         });
-        it('should not POST an existing project',  () => {
+        it('should not POST an existing project', () => {
             chai.request(server)
                 .post('/projects')
-                .send("key=TES3&name=project")
+                .send('key=TES3&name=project')
                 .end((err, res) => {
                     res.should.have.status(201);
                 });
             chai.request(server)
                 .post('/projects')
-                .send("key=TES3&name=project")
+                .send('key=TES3&name=project')
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');
@@ -57,8 +57,8 @@ describe('Projects routes', () => {
     });
 
     describe('TTES-05 /PUT projects', () => {
-        const name = "chaitest";
-        const key = "CTES";
+        const name = 'chaitest';
+        const key = 'CTES';
         let id;
 
         beforeEach((done) => {
@@ -71,17 +71,17 @@ describe('Projects routes', () => {
             });
         });
 
-        it('should PUT a project',  () => {
+        it('should PUT a project', () => {
             chai.request(server)
-                .get('/projects/update?id=' + id + '&key=TES5&name=project')
+                .put('/projects/update?id=' + id + '&name=project')
                 .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
                 });
         });
-        it('should not PUT a project with a wrong id',  () => {
+        it('should not PUT a project with a wrong id', () => {
             chai.request(server)
-                .get('/projects/update?id=7656&key=TES5&name=projects')
+                .put('/projects/update?id=7656&name=projects')
                 .end((err, res) => {
                     res.should.have.status(400);
                     res.body.should.be.a('object');

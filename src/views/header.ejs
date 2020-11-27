@@ -11,25 +11,31 @@
         <% }else{ %>
             class="menu-item"
         <%} %>>Backlog</a>
-        <a href="/" <% if (select == 2) { %>
+        <a href="/task" <% if (select == 2) { %>
             class="menu-select" 
         <% }else{ %>
             class="menu-item"
         <%} %>>Kanban</a>
-        <a href="/" <% if (select == 3) { %>
+        <a href="/projects" <% if (select == 3) { %>
             class="menu-select" 
         <% }else{ %>
             class="menu-item"
         <%} %>>Planning</a>
-        <a href="/" <% if (select == 4) { %>
+        <a href="/projects" <% if (select == 4) { %>
             class="menu-select" 
         <% }else{ %>
             class="menu-item"
         <%} %>>Releases</a>
-        <a href="/" <% if (select == 5) { %>
+        <a href="/projects" <% if (select == 5) { %>
             class="menu-select"
         <% }else{ %>
             class="menu-item"
         <%} %>>Tests</a>
     </div>
+</div>
+
+<div id="message">
+<% if(typeof error == 'string' && error && error.length > 0){%>
+<div class="error"><%= error %></div>
+<%}%>
 </div>

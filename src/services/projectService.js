@@ -1,24 +1,19 @@
 const Project = require('./../models/project');
-const Backlog = require('./../models/backlog');
 
 function addProject(name, key) {
-    let backlog = new Backlog({sprints:[], userstories:[]})
-    let project = new Project({ name: name, key: key, backlog: backlog, tasks: []});
-    return  project.save();
+    let project = new Project({ name: name, key: key});
+    return project.save();
 }
 
-function updateProject(id, name, key){
+function updateProject(id, name){
     return new Promise((resolve, reject) => {
-        if(!id) {
-            reject(new Error('id parameter is required'));
+        if (!id) {
+            return reject(new Error('id parameter is required'));
         }
-        if (!name) {
-            reject(new Error('name parameter is required'));
+        if (!name || name === '') {
+            return reject(new Error('name parameter is required'));
         }
-        if(!key) {
-            reject(new Error('key parameter is required'));
-        }
-        resolve(Project.findOneAndUpdate({_id: id}, {name:name, key: key}, {
+        resolve(Project.findOneAndUpdate({_id: id}, {name:name}, {
             new: true,
             useFindAndModify: false
         }));

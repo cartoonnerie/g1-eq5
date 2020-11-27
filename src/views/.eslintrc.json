@@ -1,0 +1,16 @@
+{
+  "parserOptions": {
+    "emcmaVersion": 6,
+    "sourceType": "module"
+  },
+  "parser": "esprima",
+  "extends": "eslint:recommended",
+  "rules": {
+    "no-mixed-spaces-and-tabs": "error",
+    "no-unused-vars": "off",
+    "no-undef": "off"
+  },
+  "env": {
+    "browser": true
+  }
+}
