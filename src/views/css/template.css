@@ -29,7 +29,7 @@ a:hover{
 }
 
 .bottom-element {
-    position: absolute; 
+    position: absolute;
     width: 100%;
     bottom: 0;
 }
@@ -70,6 +70,7 @@ a:hover{
 
 .elements{
     background-color: #f4f1ef;
+    color: black;
     border-radius: 20px;
 
     padding: 5px 20px;
@@ -165,6 +166,7 @@ a:hover{
     margin: 5px 10px;
     padding: 0;
     border-radius: 20px;
+    border:none;
     min-height: 45px;
     justify-content: center;
 }
@@ -173,7 +175,7 @@ a:hover{
     margin: 5px;
 }
 
-.list a:hover{
+.list a:hover, .list button:hover{
     background-color: #bdb7ae;
 }
 
@@ -207,7 +209,7 @@ a:hover{
 
 .menu .menu-item{
     color: white;
-} 
+}
 
 .menu .menu-item:hover{
     background: #40658b;
@@ -336,7 +338,7 @@ select{
     position: relative;
     display: inline-block;
   }
-  
+
 .tooltips .tooltiptext {
     visibility: hidden;
     position: absolute;
@@ -367,7 +369,7 @@ select{
     border-style: solid;
     border-color: #7e7e7e transparent transparent transparent;
 }
-  
+
 .tooltips:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
@@ -416,7 +418,7 @@ select{
     color: #ff685d;
     font-weight: bold;
 }
-  
+
 .calendar-date .start, .calendar-date .end{
     background-color: #6087ad;
     color: #fff !important;
@@ -436,4 +438,9 @@ select{
 .calendar-date .current {
     border-radius: 0px;
     background-color: #40658b80;
+}
+
+.calendar-date .today{
+    border-radius: 5px;
+    background-color: #8b4040;
 }

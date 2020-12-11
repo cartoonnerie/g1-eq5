@@ -1,5 +1,3 @@
-process.env.NODE_ENV = 'test';
-
 const webdriver = require('selenium-webdriver');
 const Project = require('../../src/models/project');
 const UserStory = require('../../src/models/userStory');
@@ -7,6 +5,7 @@ const Task = require('../../src/models/task');
 const assert = require('assert');
 const {Builder} = require('selenium-webdriver');
 require('../../src/app');
+const db = require('../../config/db');
 
 
 describe('ID03 E2E', () => {
@@ -25,14 +24,16 @@ describe('ID03 E2E', () => {
     });
 
     beforeEach(async () => {
-        await Project.deleteMany({});
-        await UserStory.deleteMany({});
+        await db.emptyCollections();
+        await driver.manage().deleteAllCookies();
         userStory = new UserStory({id: projectKey + '-01', name: name, description: description});
         await userStory.save();
         project = new Project({name: projectName, key: projectKey});
         project.backlog.userStories.push(userStory);
         await project.save();
-        url = 'http://localhost:8080/backlog?projectId='+project._id;
+        await driver.get('http://localhost:8080/');
+        await driver.manage().addCookie({name:'project', value: project._id.toString()});
+        url = 'http://localhost:8080/backlog';
     });
 
     after(async () => {
@@ -80,12 +81,12 @@ describe('ID03 E2E', () => {
                 await driver.get(url);
             });
 
-            it('cannot delete an user story', async () => {
+            it('cannot delete a user story', async () => {
                 const deleteButton = await driver.findElements(webdriver.By.css('div:nth-child(4) > button'));
                 assert.deepStrictEqual(deleteButton.length, 0);
             });
 
-            it('cannot update an user story', async () => {
+            it('cannot update a user story', async () => {
                 const updateButton = await driver.findElements(webdriver.By.css('div:nth-child(3) > button  '));
                 assert.deepStrictEqual(updateButton.length, 0);
             });

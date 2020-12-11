@@ -1,5 +1,8 @@
+
+
 const UserStory = require('./../models/userStory');
 const Sprint = require('./../models/sprint');
+const taskService = require('./taskService');
 
 function addUserStory(project, name, description) {
     return new Promise((resolve, reject) => {
@@ -7,31 +10,77 @@ function addUserStory(project, name, description) {
             return reject(new Error('project parameter is required'));
         if (!name)
             return reject(new Error('name parameter is required'));
-
         const index = project.backlog.currentUSId+1;
         let userStory = new UserStory({id:project.key + '-' +index, name:name, description:description});
-        userStory.save()
-            .then(() => {
-                project.backlog.userStories.push(userStory);
-                project.backlog.currentUSId = index;
-                resolve(project.save());
+        project.backlog.userStories.push(userStory);
+        project.backlog.currentUSId = index;
+        userStory.save().then((us) => {
+            project.save().then(() => {
+                resolve(us);
             });
+        });
     });
 
 }
 
 function getBacklog(project){
+    return new Promise(async (resolve, reject) => {
+        if (!project)
+            return reject(new Error('project parameter is required'));
+        const sprints = await getSprints(project.backlog.sprints);
+        const userStories = await getUserStories(project.backlog.userStories);
+        const tasks = await taskService.getAllTasks(project);
+
+        let newSprints = [];
+        for (const sprintKey in sprints){
+            let taskCount = 0;
+            let velocity = 0;
+            const sprint = sprints[sprintKey];
+            const sprintUserStories = await UserStory.find({_id:project.backlog.userStories, sprint:sprint._id});
+            for (const USKey in sprintUserStories) {
+                for (const taskKey in tasks){
+                    const task = tasks[taskKey];
+                    if (task.userStoryID && task.userStoryID.toString() === sprintUserStories[USKey]._id.toString()){
+                        taskCount += 1;
+                        if (task.status === 2)
+                            velocity += 1;
+                    }
+                }
+            }
+            newSprints.push({
+                _id:sprint._id,
+                name:sprint.name,
+                startDate:sprint.startDate,
+                endDate:sprint.endDate,
+                taskCount:taskCount,
+                velocity: velocity
+            });
+        }
+        resolve({
+            sprints: newSprints,
+            userStories: userStories
+        });
+    });
+}
+
+function getUSByDifficulty(project) {
     return new Promise((resolve, reject) => {
         if (!project)
             return reject(new Error('project parameter is required'));
-        getSpints(project.backlog.sprints)
-            .then(sprints => {
-                getUserStories(project.backlog.userStories)
-                    .then(userStories =>
-                        resolve({
-                            sprints: sprints,
-                            userStories: userStories
-                        }));
+        const usByDifficulty = [];
+        getUserStories(project.backlog.userStories)
+            .then(userStories => {
+                for (const us of userStories) {
+                    const key = us.difficulty;
+                    if (usByDifficulty.find(list => list.difficulty === key))
+                        usByDifficulty
+                            .find( list => list.difficulty === key)
+                            .userStories.push(us);
+                    else
+                        usByDifficulty.push({ difficulty: key, userStories: [us] });
+                }
+                usByDifficulty.sort((a, b) => a.difficulty - b.difficulty );
+                resolve(usByDifficulty);
             });
     });
 }
@@ -56,10 +105,16 @@ function updateUserStory(id, name, description, difficulty, priority){
         if (priority < 0 || priority > 3){
             return reject(new Error('priority is clamp into 0 and 3'));
         }
-        resolve(UserStory.findOneAndUpdate({_id: id, taskCount: 0}, {name:name, description: description, difficulty:difficulty, priority:priority}, {
+        UserStory.findOneAndUpdate({_id: id, taskCount: 0}, {name:name, description: description, difficulty:difficulty, priority:priority}, {
             new: true,
             useFindAndModify: false
-        }));
+        })
+            .then(value => {
+                if (value)
+                    return resolve(value);
+                reject(value);
+            })
+            .catch(err => reject(err));
     });
 }
 
@@ -73,12 +128,12 @@ function deleteUserStory(id, project){
                 return reject(new Error("UserStory don't delete"));
             resolve(project.backlog.userStories.pull(id));
         })
-            .catch((err) => 
+            .catch((err) =>
                 reject(err));
     });
 }
 
-function getSpints(arrayId){
+function getSprints(arrayId){
     return Sprint.find({_id:arrayId});
 }
 
@@ -169,7 +224,7 @@ function deleteSprint(id, project){
                 resolve(project.backlog.sprints.pull(id));
             });
         }).catch(err => reject(err));
-        
+
     });
 }
 
@@ -179,6 +234,7 @@ module.exports = {
     updateUserStory,
     deleteUserStory,
     getUserStories,
+    getUSByDifficulty,
     getUserStory,
     getBacklog,
     addSprint,
